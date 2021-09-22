@@ -1,3 +1,4 @@
+<?php $nev= $_POST["nev"] ?? ""?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,9 +10,9 @@
         <link rel="shortcut icon" href="M1.ico" type="image/x-icon">
     </head>
     <body>
-        <form>
+        <form method="post">
             <label for="nev">Név:</label>
-            <input type="text" name="nev" id="nev" placeholder="Név">
+            <input type="text" name="nev" id="nev" placeholder="Név" value="<?php echo htmlspecialchars($nev,ENT_QUOTES)?>">
             <input type="submit" value="elküld">
         </form>
     </body>
