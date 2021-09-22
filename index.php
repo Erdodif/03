@@ -1,6 +1,19 @@
-<?php 
-    $nev = htmlspecialchars($_POST["nev"] ?? "",ENT_QUOTES);
-    $keres = htmlspecialchars($_GET["keres"] ?? "N/A",ENT_QUOTES);
+<?php
+    if($_SERVER["REQUEST_METHOD"]==='POST'){
+        if(empty($_POST["nev"])){
+            $nevHiba = "Nincs név megadva";
+            $nev = "";
+        } else {
+            $nev = htmlspecialchars($_POST["nev"] ?? "",ENT_QUOTES);
+        }
+    } else {
+        $nev = "";
+    }
+    $keres = $_GET["keres"] ?? "false";
+    $ervenyesKereses = ['true', 'false'];;
+    if(!in_array($keres,$ervenyesKereses)){
+        $keresesHiba = "Érvénytelen keresés";
+    }$keres = htmlspecialchars($_GET["keres"] ?? "N/A",ENT_QUOTES);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,16 +26,28 @@
         <link rel="shortcut icon" href="M1.ico" type="image/x-icon">
     </head>
     <body>
-        <?php
-            if($nev!=="")
-            {
-                echo $nev."<br/>".$keres;
-            }
-            else
-            {
-                echo $keres;
-            }
-        ?>
+        <p>
+            <?php
+                if(isset($nevHiba)){
+                    echo $nevHiba;
+                }
+                elseif ($nev !==""){
+                    echo "Név: ".$nev;
+                }
+            ?>
+        </p>
+        <p>
+            <?php 
+                if(isset($keresesHiba)){
+                    echo $keresesHiba;
+                } elseif($keres==="true"){
+                    echo "Keresés: ".$keres;
+                }
+                else{
+                    echo "Nincs keresés";
+                }
+            ?>
+        </p>
         <form method="post">
             <label for="nev">Név:</label>
             <input type="text" name="nev" id="nev" placeholder="Név" value="<?php echo $nev?>">
