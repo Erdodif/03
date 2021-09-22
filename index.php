@@ -1,4 +1,7 @@
-<?php $nev = htmlspecialchars($_POST["nev"] ?? "",ENT_QUOTES)?>
+<?php 
+    $nev = htmlspecialchars($_POST["nev"] ?? "",ENT_QUOTES);
+    $keres = htmlspecialchars($_GET["keres"] ?? "N/A",ENT_QUOTES);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,7 +16,11 @@
         <?php
             if($nev!=="")
             {
-                echo $nev;
+                echo $nev."<br/>".$keres;
+            }
+            else
+            {
+                echo $keres;
             }
         ?>
         <form method="post">
